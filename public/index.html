@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="./styles/style.css">
+   <title>E-pood</title>
+  </head>
+  <body>
+    <header class="header">
+      <button id="home-button"><h1>E-pood</h1></button>
+      <ul id="categories" class="categories">
+        <!-- Kategooriad: lisatakse JavaScripti abil -->
+      </ul>
+      <div>
+        <button id="fav-button">Lemmikud</button>
+        <button  id="cart-button">
+          Ostukorv (<span id="cart-count">0</span>)
+        </button>
+      </div>
+    </header>
+
+    <main id="main-container">
+      <section id="products-view" class="view active">
+        <h2>Tooted</h2>
+        <div id="products"></div>
+      </section>
+
+      <section id="product-detail-view" class="view">
+        <h2></h2>
+        <div id="product-detail"></div>
+      </section>
+
+      <section id="cart-view" class="view">
+        <h2></h2>
+        <div id="cart-items"></div>
+        <div id="cart-summary"></div>
+      </section>
+
+      <section id="favorites-view" class="view">
+        <h2></h2>
+        <div id="favorites"></div>
+      </section>
+    </main>
+</head>
+<body>
+   <script type="module" src="main.js"></script>
+</body>
+</html>
+
