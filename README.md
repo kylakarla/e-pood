@@ -1,3 +1,6 @@
+#E-POOD
+
+
 See projekt on e-poe rakendus, mis sisaldab nii esiotsa (frontend) kui ka taustaprogrammi (backend) komponente.
 Taustaprogramm hangib andmeid Fakestore API-st.
 Esiosa kuvab tooteid ning võimaldab kasutajatel filtreerida tooteid kategooria järgi, vaadata tooteteavet, hallata ostukorvi ja salvestada lemmiktooteid.
