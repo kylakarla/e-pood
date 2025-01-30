@@ -1,5 +1,4 @@
-#E-POOD
-
+E-POOD
 
 See projekt on e-poe rakendus, mis sisaldab nii esiotsa (frontend) kui ka taustaprogrammi (backend) komponente.
 Taustaprogramm hangib andmeid Fakestore API-st.
