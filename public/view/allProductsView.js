@@ -2,16 +2,22 @@ import { customerConstructor } from "../constructors/customer.js";
 import { navigate } from "../router.js";
 import { cart } from "../main.js"
 import { cartConstructor } from "../constructors/cart.js";
+//import { getAllCategory,  GetProductsDataByCategory, fetchProducts   } from "../api.js";
+import { getProductsByCategory } from "../api.js"
 
 
-export const displayAllProductsView = (products) => {
+
+export const displayAllProductsView = async (category) => {
+  const products = await getProductsByCategory(category) 
+
+
+  
     const container = document.getElementById("main-container");
     
     container.innerHTML = "<h2>Tooted</h2>";
   
     const productsContainer = document.createElement("div");
     //productsContainer.classList.add("");
-  console.log(products)
     products.forEach((product) => {
       const productCard = document.createElement("div");
       productCard.classList.add("product");

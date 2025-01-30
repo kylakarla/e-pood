@@ -9,6 +9,10 @@ export const navigate = (view, param) => {
     productDetail: () => dispalyProductDetailView(param), // üks toode
     cart: () => displayCartView(param), // Näita ostukorvi vaadet
     favorites: () => displayFavoritesView(), //näidata lemmikute
+    //category: async () => {
+      //const products = await getProductsByCategory(param);
+      //displayAllProductsView(products);
+   // }
   };
 
   //Vali ja käivita sobiv vaade
@@ -26,11 +30,11 @@ export const navigate = (view, param) => {
 };
 
 // Sündmuse listener, kui kasutaja vajutab "tagasi" või "edasi" nuppu brauseris
-window.addEventListener("popstate", () => {
-  const path = window.location.pathname;
-  const [_, view, param] = path.split("/");
-  const decodedParam = decodeURIComponent(param);
-  navigate(view || "category", decodedParam);
-});
+//window.addEventListener("popstate", () => {
+ // const path = window.location.pathname;
+ // const [_, view, param] = path.split("/");
+//  const decodedParam = decodeURIComponent(param);
+//  navigate(view || "category", decodedParam);
+//});
 
 

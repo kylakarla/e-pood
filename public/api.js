@@ -68,3 +68,25 @@ export const getProductsDataFromJson = async () => {
       console.error(error);
     }
   };
+
+  export const fetchProducts = async () => {
+    try {
+      const data = await fetch(`${BASE_URL}/products`);
+      const productsData = await data.json();
+  
+      const dataObject = productsData.map(
+        (item) =>
+          new Product(
+            item.id,
+            item.title,
+            item.price,
+            item.category,
+            item.description,
+            item.image
+          )
+      );
+      return dataObject;
+    } catch (error) {
+      console.error(error);
+    }
+  };

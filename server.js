@@ -59,6 +59,61 @@ app.get('/products', async (req, res) => {
   }
 });
 
+// API: Tagasta tooted kategooria alusel
+app.get('/products/category/:category', async (req, res) => {
+  try {
+    const category = req.params.category;
+    const filePath = './data/products.json';
+    const rawData = await fs.readFile(filePath, 'utf-8');
+    const products = JSON.parse(rawData);
+    const filteredProducts = products.filter(product => product.category === category);
+
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(filteredProducts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Andmete lugemine ebaõnnestus' });
+  }
+});
+
+// API: Tagasta kategooriate loend
+app.get('/categories', async (req, res) => {
+  try {
+    const filePath = './data/products.json';
+    const rawData = await fs.readFile(filePath, 'utf-8');
+    const products = JSON.parse(rawData);
+    const categories = [...new Set(products.map(product => product.category))];
+
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(categories);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Andmete lugemine ebaõnnestus' });
+  }
+});
+
+// API: Tagasta toote andmed ID alusel
+app.get('/products/:id', async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const filePath = './data/products.json';
+    const rawData = await fs.readFile(filePath, 'utf-8');
+    const products = JSON.parse(rawData);
+    const product = products.find(product => product.id == productId);
+
+    if (product) {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(200).json(product);
+    } else {
+      res.status(404).json({ error: 'Toode ei leitud' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Andmete lugemine ebaõnnestus' });
+  }
+});
+
+
 // API: Käsitsi andmete uuesti laadimine ja faili salvestamine
 app.get('/fetch-products', async (req, res) => {
   try {

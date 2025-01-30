@@ -12,6 +12,27 @@ button {
   padding: 10px;
   background-color: #eee;
 }
+#categories {
+  list-style-type: none; /* Remove black dots */
+  display: flex; /* Arrange items side by side */
+  gap: 10px; /* Add spacing between the items */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margin */
+}
+#categories li {
+  cursor: pointer; /* Makes it clear the element is clickable */
+  padding: 10px 15px;
+  margin: 5px 0;
+  background-color: #f0f0f0; /* Light gray background */
+  border-radius: 5px;
+  text-align: center;
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+#categories li:hover {
+  background-color: #ec0e0e; /* Change background on hover */
+  color: white; /* Change text color on hover */
+}
 
 #main-container {
   background-color: lightblue;

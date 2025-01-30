@@ -10,6 +10,8 @@ import { dispalyProductDetailView } from './view/productDetailView.js';
 import { navigate } from './router.js';
 import { getProductsDataFromJson } from "./api.js"
 import { getAllCategory } from './api.js';
+import { fetchProducts, getProductsByCategory } from './api.js';
+
 
 let favorites = [];
 /* Loo ostukorv ja lisa tooted
@@ -29,8 +31,7 @@ customer.placeOrder(cart);
 customer.printOrderHistory();
 const order = new Order(cart);
 */
-document.title = "My website";
-const myHeading = document.getElementById("My-heading");
+
         
 /*const mainContainer = document.getElementById("container");
 console.log(mainContainer);
@@ -55,24 +56,36 @@ function dispalyProducts(){
 
 const initApp = async () => {
   
-    const productsData = await getProductsDataFromJson();
-    const products = productsData.map(
-      (item) => new Product(item.id, item.title, item.price, item.category)
-    );
+   // const productsData = await getProductsDataFromJson();
+    //const products = productsData.map(
+    //  (item) => new Product(item.id, item.title, item.price, item.category)
+   // );
 
-
-    
     console.log(products)
     const homeButton = document.getElementById("home-button");
-    homeButton.onclick = () => navigate("allProducts");
+    homeButton.onclick = () => navigate("allProducts", categories[0]);
   
     const favoritesButton = document.getElementById("fav-button");
     favoritesButton.onclick = () => navigate("favorites", favorites);
   
     const cartButton = document.getElementById("cart-button");
     cartButton.onclick = () => navigate("cart", cart);
+
+    const categories = await getAllCategory();
+    const categoryMenu = document.getElementById("categories");
+    
+    categories.forEach((category) => {
+      const categoryElement = document.createElement("li");
+     categoryElement.textContent = category;
+     categoryElement.onclick = () => navigate("allProducts", category);
+
+     categoryMenu.appendChild(categoryElement);
+     
+   });
   
     displayAllProductsView(products);
+
+    
   };
   
   document.addEventListener("DOMContentLoaded", initApp);
