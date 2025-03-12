@@ -1,14 +1,13 @@
 import { customerConstructor } from "../constructors/customer.js";
 import { navigate } from "../router.js";
-import { cart } from "../main.js"
-import { cartConstructor } from "../constructors/cart.js";
-//import { getAllCategory,  GetProductsDataByCategory, fetchProducts   } from "../api.js";
-import { getProductsByCategory } from "../api.js"
+import { cart } from "../constructors/cart.js";
+import { fetchProducts, getProductsByCategory } from "../api.js"
 
 
 
 export const displayAllProductsView = async (category) => {
-  const products = await getProductsByCategory(category) 
+  const products = await (!category ? fetchProducts() : getProductsByCategory(category))
+  
 
 
   
@@ -46,7 +45,7 @@ export const displayAllProductsView = async (category) => {
       // toote kaardile vajutades mine toode detaisesse vaatesse
       productCard.onclick = (e) => {
         e.stopPropagation();
-        navigate("product-detail");
+        navigate("productDetail", product.id);
       };
   
       //ühe toote kaardi lisan toodete konteinerisse

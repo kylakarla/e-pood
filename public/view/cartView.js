@@ -1,8 +1,8 @@
-import { Cart } from "../constructors/cart.js";
-import { cartConstructor } from "../constructors/cart.js";
+import { cart } from "../constructors/cart.js";
+
 
 //Ostukorvi vaate genereerimine
-export const displayCartView = (cart) => {
+export const displayCartView = () => {
   const container = document.getElementById("main-container");
   container.innerHTML = "<h2>Ostukorv</h2>";
 

@@ -1,3 +1,5 @@
+import { displayCartView } from "../view/cartView.js";
+
 export class Cart {
   constructor() {
       this.items = []; // Ostukorvi sisu hoidmiseks
@@ -34,11 +36,15 @@ export class Cart {
 
     this.displayTotalItems();
     displayCartView();
+
   }
 
   // Eemalda toode ostukorvist nime järgi
   removeProduct(productId) {
       this.items = this.items.filter(item => item.product.id !== productId);
+
+      this.displayTotalItems();
+      displayCartView();
   }
 
   // Arvuta ostukorvi kogusumma
@@ -76,4 +82,4 @@ export class Cart {
   }
 }
 
-export const cartConstructor = new Cart();
+export const cart = new Cart();

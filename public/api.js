@@ -1,12 +1,10 @@
 import { Product } from "./constructors/product.js"
 
-const BASE_URL = "https://fakestoreapi.com";
-
 
 // tegime funktsiooni, et fetch'ida andmed json failist
 export const getProductsDataFromJson = async () => {
     try {
-      const data = await fetch(`${BASE_URL}/products/`);
+      const data = await fetch('/products');
       return data.json();
     } catch (error) {
       console.error(error);
@@ -16,7 +14,7 @@ export const getProductsDataFromJson = async () => {
   // see lahendus on siis, kui sa soovid näidata tooteid ainult kategoorite järgi
   export const getProductsByCategory = async (category) => {
     try {
-      const data = await fetch(`${BASE_URL}/products/category/${category}`);
+      const data = await fetch(`/products/category/${category}`);
       const productsData = await data.json();
 
       const dataObject = productsData.map(
@@ -38,7 +36,7 @@ export const getProductsDataFromJson = async () => {
   
   export const getAllCategory = async () => {
     try {
-      const data = await fetch(`${BASE_URL}/products/categories`);
+      const data = await fetch(`/categories`);
       return data.json();
     } catch (error) {
       console.error(error);
@@ -48,7 +46,7 @@ export const getProductsDataFromJson = async () => {
   export const getProductById = async (productId) => {
     console.log("id", productId);
     try {
-      const data = await fetch(`${BASE_URL}/products/${productId}`);
+      const data = await fetch(`/products/${productId}`);
   
       const productData = await data.json();
   
@@ -71,7 +69,7 @@ export const getProductsDataFromJson = async () => {
 
   export const fetchProducts = async () => {
     try {
-      const data = await fetch(`${BASE_URL}/products`);
+      const data = await fetch(`/products`);
       const productsData = await data.json();
   
       const dataObject = productsData.map(

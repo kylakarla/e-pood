@@ -2,9 +2,11 @@ import express from 'express';
 import fs from 'fs/promises';
 import axios from 'axios';
 import path from 'path';
+import { log } from 'console';
 
 const app = express();
 const PORT = 3000;
+const favoritesFile = "./data/favorites.json"
 
 // Middleware staatiliste failide jaoks
 app.use(express.static('public'));
@@ -114,16 +116,67 @@ app.get('/products/:id', async (req, res) => {
 });
 
 
-// API: Käsitsi andmete uuesti laadimine ja faili salvestamine
-app.get('/fetch-products', async (req, res) => {
+
+app.get('/favorites/', async (req, res) => {
   try {
-    await fetchAndSaveProducts();
-    res.status(200).json({ message: 'Andmed salvestatud products.json faili' });
+    // Kontrolli, kas fail eksisteerib ja pole tühi
+    const fileExists = await fs.access(favoritesFile).then(() => true).catch(() => false);
+    if (!fileExists) {
+      return res.status(200).json([]); // Kui faili pole, tagasta tühi massiiv
+    }
+
+    const raw = await fs.readFile(favoritesFile, 'utf-8');
+    const favorites = raw.trim() ? JSON.parse(raw) : [];
+
+    res.status(200).json(favorites);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Andmete laadimine ebaõnnestus' });
+    res.status(500).json({ error: 'Failed to load favorites' });
   }
 });
+
+// 📌 POST: Add product to user's favorites (DONEE)
+app.post('/favorites/', async (req, res) => {
+  try {
+   const productid = parseInt(req.query.id)
+   const raw = await fs.readFile(favoritesFile, "utf-8")
+   const favorites = JSON.parse(raw)
+   favorites.push(productid)
+   fs.writeFile(favoritesFile, JSON.stringify(favorites))
+   res.status(200).json(favorites)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error: 'Failed to add to favorites' });
+  }
+});
+
+// 📌 DELETE: Remove product from user's favorites
+app.delete('/favorites/', async (req, res) => {
+  try {
+    const productid = parseInt(req.query.id);
+    if (isNaN(productid)) {
+      return res.status(400).json({ error: 'Invalid product ID' });
+    }
+
+    const raw = await fs.readFile(favoritesFile, 'utf-8');
+    let favorites = JSON.parse(raw) || [];
+
+    // Kontrolli, kas toode on nimekirjas
+    if (!favorites.includes(productid)) {
+      return res.status(404).json({ error: 'Product not found in favorites' });
+    }
+
+    // Eemalda toode lemmikutest
+    favorites = favorites.filter(id => id !== productid);
+    await fs.writeFile(favoritesFile, JSON.stringify(favorites, null, 2));
+
+    res.status(200).json(favorites);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to remove from favorites' });
+  }
+});
+
 
 // Käivita server
 app.listen(PORT, () => {
