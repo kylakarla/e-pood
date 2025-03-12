@@ -135,7 +135,7 @@ app.get('/favorites/', async (req, res) => {
   }
 });
 
-// 📌 POST: Add product to user's favorites (DONEE)
+// POST (DONEE)
 app.post('/favorites/', async (req, res) => {
   try {
    const productid = parseInt(req.query.id)
@@ -150,7 +150,7 @@ app.post('/favorites/', async (req, res) => {
   }
 });
 
-// 📌 DELETE: Remove product from user's favorites
+// DELETE
 app.delete('/favorites/', async (req, res) => {
   try {
     const productid = parseInt(req.query.id);
